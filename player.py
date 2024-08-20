@@ -2,10 +2,12 @@ import pygame
 from circleshape import *
 from constants import *
 from shot import Shot
+from score import Score
 
 class Player(CircleShape):
     def __init__(self,x,y):
         super().__init__(x,y,PLAYER_RADIUS)
+        self.score = Score()
         self.position = pygame.Vector2(x,y)
         self.radius = PLAYER_RADIUS
         self.rotation = 0
@@ -50,3 +52,9 @@ class Player(CircleShape):
             self.timer =  PLAYER_SHOOT_COOLDOWN
             shot = Shot(self.position.x, self.position.y)
             shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+    
+    def get_score(self):
+        return self.score
+
+    def add_score(self, asteroid):
+        pass
