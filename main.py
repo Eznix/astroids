@@ -45,9 +45,14 @@ def main():
 
         for asteroid in asteroids:
             if asteroid.collides_with(player):
-                print("Game over!")
-                print("Score:", score.get_score())
-                sys.exit()
+                player.player_died()
+                player.kill()
+                if player.get_lives() > 0:
+                    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, player.player_lives)
+                else:    
+                    print("Game over!")
+                    print("Score:", score.get_score())
+                    sys.exit()
 
             for shot in shots:
                 if asteroid.collides_with(shot):
@@ -61,7 +66,7 @@ def main():
             obj.draw(screen)
 
         # Draw the score to the screen
-        score_text = font.render(f'Score: {score.get_score()}', True, (255, 255, 255))
+        score_text = font.render(f'Score: {score.get_score()}  Lives: {player.player_lives}', True, (255, 255, 255))
         screen.blit(score_text, (10, 10))
 
 
