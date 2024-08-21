@@ -7,7 +7,6 @@ class Score():
         self.score = 0
 
     def add_score(self,asteroid):
-        print(self.score)
         if asteroid.radius == ASTEROID_MAX_RADIUS:
             self.score += 50
         elif asteroid.radius == ASTEROID_MIN_RADIUS:
