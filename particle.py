@@ -40,7 +40,10 @@ class ParticleSystem:
         self.particles = []
 
     def add_particle(self, x, y, radius):
-        self.particles.append(Particle(x, y, radius))
+        print(len(self.particles))
+        if len(self.particles) < 500:
+            self.particles.append(Particle(x, y, radius))
+        
 
     def update(self):
         for particle in self.particles:

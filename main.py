@@ -62,6 +62,7 @@ def main():
             for shot in shots:
                 if asteroid.collides_with(shot):
                     shot.kill()
+                    particle_system.add_particle(asteroid.position.x, asteroid.position.y, 1)
                     score.add_score(asteroid)
                     asteroid.split()
 
