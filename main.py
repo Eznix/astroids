@@ -6,6 +6,7 @@ from shot import Shot
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from score import Score
+from particle import *
 
 
 def main():
@@ -19,16 +20,20 @@ def main():
     asteroids = pygame.sprite.Group()
     shots = pygame.sprite.Group()
     score = pygame.sprite.Group()
+    particle = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids,updatable,drawable)
     AsteroidField.containers = (updatable)
     Shot.containers = (shots,updatable,drawable)
     Score.containers = (score,drawable)
+    Particle.containers = (updatable)
     
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     asteroidField = AsteroidField()
     score = Score()
+    # Create particle system for dust effect
+    particle_system = ParticleSystem()
 
     dt = 0
 
@@ -66,9 +71,15 @@ def main():
             obj.draw(screen)
 
         # Draw the score to the screen
-        score_text = font.render(f'Score: {score.get_score()}  Lives: {player.player_lives}', True, (255, 255, 255))
+        score_text = font.render(f'Score: {score.get_score()} Lives: {player.player_lives}', True, (255, 255, 255))
         screen.blit(score_text, (10, 10))
-
+        
+        particle_x = random.randint(0, SCREEN_WIDTH)
+        particle_y = random.randint(0, SCREEN_HEIGHT)
+        particle_system.add_particle(particle_x, particle_y, 1)
+        particle_system.update()
+        
+        particle_system.draw(screen)
 
         pygame.display.flip()
 
